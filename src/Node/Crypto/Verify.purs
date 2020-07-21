@@ -1,6 +1,4 @@
-module Node.Crypto.Verify
-  ( verify
-  ) where
+module Node.Crypto.Verify where
 
 import Prelude
 import Effect (Effect)
