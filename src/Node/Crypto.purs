@@ -1,5 +1,6 @@
 module Node.Crypto
   ( KeyObject
+  , Key
   , createPublicKey
   , timingSafeEqualString
   ) where
@@ -12,6 +13,10 @@ import Node.Crypto.Hmac (createHmac, digest, update)
 import Node.Encoding (Encoding(..))
 
 foreign import data KeyObject ∷ Type
+
+data Key
+  = String
+  | Buffer
 
 timingSafeEqualString ∷ String -> String -> Effect Boolean
 timingSafeEqualString x1 x2 = do
@@ -26,4 +31,4 @@ foreign import timingSafeEqual ∷ Buffer -> Buffer -> Effect Boolean
 
 foreign import randomBytes ∷ Int -> Effect Buffer
 
-foreign import createPublicKey ∷ Buffer -> Effect KeyObject
+foreign import createPublicKey ∷ Key -> Effect KeyObject
