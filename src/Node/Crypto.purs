@@ -1,4 +1,8 @@
-module Node.Crypto where
+module Node.Crypto
+  ( KeyObject
+  , createPublicKey
+  , timingSafeEqualString
+  ) where
 
 import Prelude
 import Effect (Effect)
