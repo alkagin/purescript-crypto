@@ -13,28 +13,28 @@ import Node.Encoding (Encoding(UTF8, Hex, Base64))
 import Node.Buffer (Buffer, fromString, toString, concat)
 import Node.Crypto.Cipher (Algorithm, Password)
 
-foreign import data Decipher :: Type
+foreign import data Decipher ∷ Type
 
-fromHex
-  :: Algorithm
-  -> Password
-  -> String
-  -> Effect String
+fromHex ∷
+  Algorithm ->
+  Password ->
+  String ->
+  Effect String
 fromHex alg password str = decipher alg password str Hex
 
-fromBase64
-  :: Algorithm
-  -> Password
-  -> String
-  -> Effect String
+fromBase64 ∷
+  Algorithm ->
+  Password ->
+  String ->
+  Effect String
 fromBase64 alg password str = decipher alg password str Base64
 
-decipher
-  :: Algorithm
-  -> Password
-  -> String
-  -> Encoding
-  -> Effect String
+decipher ∷
+  Algorithm ->
+  Password ->
+  String ->
+  Encoding ->
+  Effect String
 decipher alg password str enc = do
   buf <- fromString str enc
   dec <- createDecipher alg password
@@ -43,14 +43,14 @@ decipher alg password str enc = do
   rbuf <- concat [ rbuf1, rbuf2 ]
   toString UTF8 rbuf
 
-createDecipher :: Algorithm -> Password -> Effect Decipher
+createDecipher ∷ Algorithm -> Password -> Effect Decipher
 createDecipher alg password = _createDecipher (show alg) password
 
-foreign import _createDecipher
-  :: String
-  -> String
-  -> Effect Decipher
+foreign import _createDecipher ∷
+  String ->
+  String ->
+  Effect Decipher
 
-foreign import update :: Decipher -> Buffer -> Effect Buffer
+foreign import update ∷ Decipher -> Buffer -> Effect Buffer
 
-foreign import final :: Decipher -> Effect Buffer
+foreign import final ∷ Decipher -> Effect Buffer
